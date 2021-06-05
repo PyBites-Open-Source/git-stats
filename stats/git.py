@@ -1,4 +1,4 @@
-from collections import namedtuple, Counter
+from collections import Counter, defaultdict, namedtuple
 from functools import lru_cache
 from pathlib import Path
 import re
@@ -8,33 +8,36 @@ from dateutil.parser import parse
 
 from .exceptions import NotAGitRepo
 
-DEFAULT_SINCE = "1 week ago"
 PY_EXTENSION = ".py"
 
 Commit = namedtuple("Commit", "hash author day msg")
 Stats = namedtuple("Stats", "inserts deletes filename")
 
 
-def get_dotgit_path(repo):
-    return Path(repo) / ".git"
-
-
 def validate_git_dir(repo):
-    git_dir = get_dotgit_path(repo)
+    git_dir = Path(repo) / ".git"
     if not git_dir.is_dir():
         raise NotAGitRepo(
             (f"{repo} does not have a .git folder "
              "so it does not seem a valid Git repo"))
 
 
-def get_git_log(repo, since=DEFAULT_SINCE):
+def _create_log_command(repo, since):
+    parts = [
+        "(", "cd", repo, "&&", "git log",
+        "--all", "--pretty=format:'",
+        "%h%x09%an%x09%ad%x09%s", "'"]
+    if since is not None:
+        parts.extend(
+            ["--since='", since, "'"])
+    parts.append(")")
+    return " ".join(parts)
+
+
+def get_git_log(repo, since=None):
     validate_git_dir(repo)
 
-    branches = "--all"
-    pretty_format = "%h%x09%an%x09%ad%x09%s"
-    cmd = (f"(cd {repo} && git log {branches} "
-           f"--pretty=format:'{pretty_format}' "
-           f"--since='{since}')")
+    cmd = _create_log_command(repo, since)
     output = subprocess.check_output(
         cmd, shell=True).splitlines()
 
@@ -45,9 +48,10 @@ def get_git_log(repo, since=DEFAULT_SINCE):
         yield Commit(hash_, author, day, msg)
 
 
-def get_file_changes(repo, commit, extension=PY_EXTENSION):
+def get_file_changes(repo, commit,
+                     filter_extension=PY_EXTENSION):
     cmd = (f"(cd {repo} && git show --numstat "
-           f"{commit} -- '**/*{extension}')")
+           f"{commit} -- '**/*{filter_extension}')")
     output = subprocess.check_output(
         cmd, shell=True).splitlines()
 
@@ -68,31 +72,25 @@ def _get_repo_stats(repo):
     return stats
 
 
-def get_repo_stats_by_author(repo):
-    stats = Counter()
-    for commit, stat in _get_repo_stats(repo):
-        stats[commit.author] += stat.inserts + stat.deletes
-    return stats
-
-
-def get_repo_stats_by_day(repo):
+def get_number_of_changes_per_day(repo):
     stats = Counter()
     for commit, stat in _get_repo_stats(repo):
         stats[commit.day] += stat.inserts + stat.deletes
     return stats
 
 
-def get_repo_stats_by_filename(repo):
-    stats = Counter()
-    for commit, stat in _get_repo_stats(repo):
-        stats[stat.filename] += stat.inserts + stat.deletes
+def get_number_of_commits_per_day_and_author(repo):
+    stats = defaultdict(lambda: Counter())
+    for commit, _ in _get_repo_stats(repo):
+        stats[commit.day][commit.author] += 1
     return stats
 
 
-if __name__ == "__main__":
-    repo = "/Users/bbelderbos/code/payroll"
-    from pprint import pprint as pp
-    #res = get_all_changes_by_day(repo)
-    pp(get_repo_stats_by_author(repo))
-    pp(get_repo_stats_by_day(repo))
-    pp(get_repo_stats_by_filename(repo))
+def get_most_changed_files(repo, number_of_files=10):
+    """Amount of times a filename was part of a commit
+       (independent of the size of the commit)
+       TODO: could make this weighted"""
+    stats = Counter()
+    for _, stat in _get_repo_stats(repo):
+        stats[stat.filename] += 1
+    return stats.most_common(number_of_files)
