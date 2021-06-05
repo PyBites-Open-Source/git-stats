@@ -1,0 +1,2 @@
+class NotAGitRepo(Exception):
+    pass
