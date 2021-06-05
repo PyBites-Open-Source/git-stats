@@ -1,4 +1,5 @@
 from collections import namedtuple, Counter
+from functools import lru_cache
 from pathlib import Path
 import re
 import subprocess
@@ -59,9 +60,11 @@ def get_file_changes(repo, commit, extension=PY_EXTENSION):
 
 def _get_repo_stats(repo):
     commits = get_git_log(repo)
+    stats = []
     for commit in commits:
         for stat in get_file_changes(repo, commit.hash):
-            yield commit, stat
+            stats.append((commit, stat))
+    return stats
 
 
 def get_repo_stats_by_author(repo):
