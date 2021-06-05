@@ -58,6 +58,7 @@ def get_file_changes(repo, commit, extension=PY_EXTENSION):
             yield Stats(int(inserts), int(deletes), filename)
 
 
+@lru_cache
 def _get_repo_stats(repo):
     commits = get_git_log(repo)
     stats = []
