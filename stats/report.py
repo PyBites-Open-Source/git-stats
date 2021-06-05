@@ -20,7 +20,7 @@ def show_report(repo):
 
     print("\n* Number of commits per day and author:\n")
     commits = get_number_of_commits_per_day_and_author(repo)
-    for day, commits_cnt in commits.items():
+    for day, commits_cnt in sorted(commits.items()):
         print(day)
         for author, num_commits in commits_cnt.items():
             print(f"- {author:<36} | {num_commits:>3}")
