@@ -89,7 +89,11 @@ def get_number_of_commits_per_day_and_author(repo):
 def get_most_changed_files(repo, number_of_files=10):
     """Amount of times a filename was part of a commit
        (independent of the size of the commit)
-       TODO: could make this weighted"""
+       TODO: could make this weighted
+       TODO: might want to take into account last N commits
+             because already found a usecase of __init__.py
+             before refactoring (so should not count)
+    """
     stats = Counter()
     for _, stat in _get_repo_stats(repo):
         stats[stat.filename] += 1
