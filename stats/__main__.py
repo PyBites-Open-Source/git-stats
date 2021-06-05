@@ -7,9 +7,11 @@ from .git import (get_number_of_changes_per_day,
 
 
 def main():
-    repo = "/Users/bbelderbos/code/payroll"
-    if len(sys.argv) == 2:
-        repo = sys.argv[1]
+    if len(sys.argv) != 2:
+        print(f"Usage: {sys.argv[0]} YOUR_REPO_FOLDER")
+        sys.exit(1)
+
+    repo = sys.argv[1]
 
     print("Git Repo Activity Report (Python files only)")
     print("\nRepo inserts and deletes per day:")
