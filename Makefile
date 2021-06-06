@@ -20,7 +20,7 @@ test:
 
 .PHONY: coverage
 coverage:
-	pytest --cov=stats
+	pytest --cov=stats --cov-report term-missing
 
 .PHONY: ci
 ci: lint typing test
