@@ -2,11 +2,11 @@ from collections import Counter, defaultdict, namedtuple
 from functools import lru_cache
 from pathlib import Path
 import re
-import subprocess
 
 from dateutil.parser import parse
 
 from .exceptions import NotAGitRepo
+from .utils import run_command
 
 PY_EXTENSION = ".py"
 
@@ -38,8 +38,7 @@ def get_git_log(repo, since=None):
     validate_git_dir(repo)
 
     cmd = _create_log_command(repo, since)
-    output = subprocess.check_output(
-        cmd, shell=True).splitlines()
+    output = run_command(cmd)
 
     for line in output:
         fields = line.decode().split("\t")
@@ -52,8 +51,7 @@ def get_file_changes(repo, commit,
                      filter_extension=PY_EXTENSION):
     cmd = (f"(cd {repo} && git show --numstat "
            f"{commit} -- '**/*{filter_extension}')")
-    output = subprocess.check_output(
-        cmd, shell=True).splitlines()
+    output = run_command(cmd)
 
     for line in output:
         m = re.match(r'^(\d+)\t(\d+)\t(\S+)$', line.decode())
