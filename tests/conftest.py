@@ -10,7 +10,9 @@ def repo(tmp_path):
     os.mkdir(repo)
     gitdir = repo / ".git"
     os.mkdir(gitdir)
-    return repo
+    yield repo
+    os.rmdir(gitdir)
+    os.rmdir(repo)
 
 
 def _clean_data(content):
