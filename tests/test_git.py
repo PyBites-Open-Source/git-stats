@@ -1,6 +1,4 @@
 from unittest.mock import patch
-import os
-from pathlib import Path
 
 import pytest
 
@@ -8,38 +6,6 @@ from stats.git import (validate_git_dir, _create_log_command,
                        get_git_log, get_file_changes,
                        Commit, Stats)
 from stats.exceptions import NotAGitRepo
-
-
-@pytest.fixture
-def repo(tmp_path):
-    repo = tmp_path / "payroll"
-    os.mkdir(repo)
-    gitdir = repo / ".git"
-    os.mkdir(gitdir)
-    return repo
-
-
-def _clean_data(content):
-    lines = [line.lstrip("b").rstrip("\n").encode()
-             for line in content.replace("\\t", "\t").split("\\n")]
-    return b'\n'.join(lines)
-
-
-@pytest.fixture
-def gitlog(repo):
-    """Preparing the output exactly as subprocess / git log
-       would output it, so we don't have to use a real git
-       repository (dependency)"""
-    with open(Path("tests") / "payloads" / "gitlog.txt") as f:
-        content = f.read()
-    return _clean_data(content)
-
-
-@pytest.fixture
-def gitcommit(repo):
-    with open(Path("tests") / "payloads" / "gitcommit.txt") as f:
-        content = f.read()
-    return _clean_data(content)
 
 
 def test_validate_git_dir(tmp_path):
