@@ -1,9 +1,8 @@
 from collections import Counter, defaultdict, namedtuple
+from datetime import datetime
 from functools import lru_cache
 from pathlib import Path
 import re
-
-from dateutil.parser import parse
 
 from .exceptions import NotAGitRepo
 from .utils import run_command
@@ -46,7 +45,8 @@ def get_git_log(repo, since=None):
     for line in output:
         fields = line.decode().split("\t")
         hash_, author, date, msg = fields
-        day = parse(date).strftime("%Y-%m-%d")
+        dt = datetime.strptime(date, "%a %b %d %H:%M:%S %Y %z")
+        day = dt.strftime("%Y-%m-%d")
         yield Commit(hash_, author, day, msg)
 
 
