@@ -1,14 +1,12 @@
 from collections import Counter, defaultdict
 from functools import lru_cache
 
-from .git import get_file_changes, get_git_log, PY_EXTENSION
+from .git import get_file_changes, get_git_log
 
 
 class GitStats:
 
     def __init__(self, extension_pattern=None):
-        if extension_pattern is None:
-            extension_pattern = PY_EXTENSION
         self.extension_pattern = extension_pattern
 
     @lru_cache

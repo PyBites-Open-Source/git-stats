@@ -6,8 +6,6 @@ import re
 from .exceptions import NotAGitRepo
 from .utils import run_command
 
-PY_EXTENSION = ".py"
-
 Commit = namedtuple("Commit", "hash author day msg")
 Stats = namedtuple("Stats", "inserts deletes filename")
 
@@ -49,10 +47,11 @@ def get_git_log(repo, since=None):
         yield Commit(hash_, author, day, msg)
 
 
-def get_file_changes(repo, commit,
-                     filter_extension=PY_EXTENSION):
-    cmd = (f"(cd {repo} && git show --numstat "
-           f"{commit} -- '**/*{filter_extension}')")
+def get_file_changes(repo, commit, filter_extension=None):
+    cmd = f"(cd {repo} && git show --numstat {commit}"
+    if filter_extension is not None:
+        cmd += f" -- '**/*{filter_extension}'"
+    cmd += ")"
     output = run_command(cmd)
 
     for line in output:
