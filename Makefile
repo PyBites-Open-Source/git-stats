@@ -14,9 +14,19 @@ lint:
 typing:
 	mypy stats tests
 
+.PHONY: unit
+unit:
+	pytest tests/unit
+
+.PHONY: functional
+functional:
+	pytest tests/functional
+
 .PHONY: test
-test:
-	pytest
+test: unit
+
+.PHONY: testall
+testall: unit functional
 
 .PHONY: coverage
 coverage:
