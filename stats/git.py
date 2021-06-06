@@ -35,6 +35,9 @@ def _create_log_command(repo, since):
 
 
 def get_git_log(repo, since=None):
+    if isinstance(repo, Path):
+        repo = str(repo)
+
     validate_git_dir(repo)
 
     cmd = _create_log_command(repo, since)
