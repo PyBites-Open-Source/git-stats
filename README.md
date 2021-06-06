@@ -48,3 +48,14 @@ payroll/__init__.py                    |   4
 tests/test_timesheet.py                |   4
 --------------------------------------------------
 ```
+
+## To run the tests:
+
+There are unit tests and one functional (end-to-end) test. You can run them like this:
+
+```
+make unit (or make test)
+make functional
+make testall
+make coverage
+```
