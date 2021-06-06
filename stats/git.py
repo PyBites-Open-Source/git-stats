@@ -81,9 +81,9 @@ def get_number_of_changes_per_day(repo):
 
 
 def get_number_of_commits_per_day_and_author(repo):
-    stats = defaultdict(lambda: Counter())
+    stats = defaultdict(lambda: defaultdict(set))
     for commit, _ in _get_repo_stats(repo):
-        stats[commit.day][commit.author] += 1
+        stats[commit.day][commit.author].add(commit.hash)
     return stats
 
 
