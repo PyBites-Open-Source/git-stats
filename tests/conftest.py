@@ -41,9 +41,9 @@ def gitcommit(repo):
     return _clean_data(content)
 
 
-@pytest.fixture
-def karmabot_dir(tmp_path):
-    karmabot_dir = tmp_path / "karmabot"
+@pytest.fixture(scope="module")
+def karmabot_dir(tmp_path_factory):
+    karmabot_dir = tmp_path_factory.mktemp("karmabot") / "karmabot"
     cmd = ("git clone git@github.com:pybob/karmabot.git"
            f" {karmabot_dir} 2>&1 > /dev/null")
     run_command(cmd)
