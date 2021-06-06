@@ -6,7 +6,7 @@ def test_report_allchanges_karmabot(karmabot_dir, capfd):
     actual = capfd.readouterr()[0].splitlines()
     expected = [
         "--------------------------------------------------",
-        "< Git Repo Activity Report (Python files only) >",
+        "< Git Repo Activity Report >",
         "> Repo: karmabot",
         "--------------------------------------------------",
         "",
@@ -219,7 +219,7 @@ def test_report_pychanges_karmabot(karmabot_dir, capfd):
     actual = capfd.readouterr()[0].splitlines()
     expected = [
         "--------------------------------------------------",
-        "< Git Repo Activity Report (Python files only) >",
+        "< Git Repo Activity Report (.py files only) >",
         "> Repo: karmabot",
         "--------------------------------------------------",
         "",

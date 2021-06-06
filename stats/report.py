@@ -3,12 +3,23 @@ import os
 from .stats import GitStats
 
 
+def _create_header(extension_pattern):
+    header = "< Git Repo Activity Report"
+    if extension_pattern is not None:
+        header += f" ({extension_pattern} files only)"
+    header += " >"
+    return header
+
+
 def show_report(repo, extension_pattern=None):
     gstats = GitStats(extension_pattern)
 
     sep = "-" * 50
     print(sep)
-    print("< Git Repo Activity Report (Python files only) >")
+
+    header = _create_header(extension_pattern)
+    print(header)
+
     print(f"> Repo: {os.path.basename(repo)}")
     print(sep)
 
