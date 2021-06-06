@@ -63,39 +63,46 @@ def get_file_changes(repo, commit,
             yield Stats(int(inserts), int(deletes), filename)
 
 
-@lru_cache
-def _get_repo_stats(repo):
-    commits = get_git_log(repo)
-    stats = []
-    for commit in commits:
-        for stat in get_file_changes(repo, commit.hash):
-            stats.append((commit, stat))
-    return stats
+class GitStats:
 
+    def __init__(self, extension_pattern=None):
+        if extension_pattern is None:
+            extension_pattern = PY_EXTENSION
+        self.extension_pattern = extension_pattern
 
-def get_number_of_changes_per_day(repo):
-    stats = Counter()
-    for commit, stat in _get_repo_stats(repo):
-        stats[commit.day] += stat.inserts + stat.deletes
-    return stats
+    @lru_cache
+    def _get_repo_stats(self, repo):
+        commits = get_git_log(repo)
+        stats = []
+        for commit in commits:
+            for stat in get_file_changes(
+                repo, commit.hash,
+                filter_extension=self.extension_pattern
+            ):
+                stats.append((commit, stat))
+        return stats
 
+    def get_number_of_changes_per_day(self, repo):
+        stats = Counter()
+        for commit, stat in self._get_repo_stats(repo):
+            stats[commit.day] += stat.inserts + stat.deletes
+        return stats
 
-def get_number_of_commits_per_day_and_author(repo):
-    stats = defaultdict(lambda: defaultdict(set))
-    for commit, _ in _get_repo_stats(repo):
-        stats[commit.day][commit.author].add(commit.hash)
-    return stats
+    def get_number_of_commits_per_day_and_author(self, repo):
+        stats = defaultdict(lambda: defaultdict(set))
+        for commit, _ in self._get_repo_stats(repo):
+            stats[commit.day][commit.author].add(commit.hash)
+        return stats
 
-
-def get_most_changed_files(repo, number_of_files=10):
-    """Amount of times a filename was part of a commit
-       (independent of the size of the commit)
-       TODO: could make this weighted
-       TODO: might want to take into account last N commits
-             because already found a usecase of __init__.py
-             before refactoring (so should not count)
-    """
-    stats = Counter()
-    for _, stat in _get_repo_stats(repo):
-        stats[stat.filename] += 1
-    return stats.most_common(number_of_files)
+    def get_most_changed_files(self, repo, number_of_files=10):
+        """Amount of times a filename was part of a commit
+        (independent of the size of the commit)
+        TODO: could make this weighted
+        TODO: might want to take into account last N commits
+                because already found a usecase of __init__.py
+                before refactoring (so should not count)
+        """
+        stats = Counter()
+        for _, stat in self._get_repo_stats(repo):
+            stats[stat.filename] += 1
+        return stats.most_common(number_of_files)
