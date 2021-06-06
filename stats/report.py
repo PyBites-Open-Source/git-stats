@@ -1,6 +1,6 @@
 import os
 
-from .git import GitStats
+from .stats import GitStats
 
 
 def show_report(repo, extension_pattern=None):
