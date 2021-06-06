@@ -24,14 +24,14 @@ def validate_git_dir(repo):
 
 def _create_log_command(repo, since):
     parts = [
-        "(", "cd", repo, "&&", "git log",
-        "--all", "--pretty=format:'",
+        "(", "cd ", repo, " && ", "git log ",
+        "--all ", "--pretty=format:'",
         "%h%x09%an%x09%ad%x09%s", "'"]
     if since is not None:
         parts.extend(
-            ["--since='", since, "'"])
+            [" --since='", since, "'"])
     parts.append(")")
-    return " ".join(parts)
+    return "".join(parts)
 
 
 def get_git_log(repo, since=None):

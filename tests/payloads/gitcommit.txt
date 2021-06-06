@@ -1,0 +1,1 @@
+b'commit 1f86432431d2eea921ef40a01ea5aff33fc49029\nAuthor: Bob Belderbos <bobbelderbos@gmail.com>\nDate:   Wed Jun 2 21:30:36 2021 +0200\n\n    ran isort\n\n1\t1\tpayroll/company.py\n1\t1\tpayroll/employee.py\n1\t1\tpayroll/payment.py\n1\t1\tpayroll/payroll.py\n1\t1\tpayroll/timesheet.py\n1\t4\ttests/conftest.py\n1\t2\ttests/test_objects.py\n'
