@@ -15,24 +15,22 @@ python -m stats YOUR_REPO_FOLDER
 
 ```
 --------------------------------------------------
-< Git Repo Activity Report (Python files only) >
+< Git Repo Activity Report >
 > Repo: payroll
 --------------------------------------------------
 
-* Repo inserts and deletes per day:
+* Repo inserts and deletes per week:
 
-2021-05-30                             | 929
-2021-06-01                             |  55
-2021-06-02                             |  33
+2021-21                                | 1116
+# Are you an active developer?
+2021-22                                | 192
 
-* Number of commits per day and author:
+* Number of commits per week and author:
 
-2021-05-30
-- Bob Belderbos                        |  61
-2021-06-01
-- Bob Belderbos                        |   9
-2021-06-02
-- Bob Belderbos                        |  10
+2021-21
+- Bob Belderbos                        |  19
+2021-22
+- Bob Belderbos                        |  16
 
 * Files that are most often found in commits:
 
@@ -41,11 +39,11 @@ tests/conftest.py                      |  10
 payroll/timesheet.py                   |   9
 tests/test_objects.py                  |   9
 payroll/employee.py                    |   8
+README.md                              |   7
 payroll/payment.py                     |   5
 tests/test_payroll.py                  |   5
 payroll/company.py                     |   4
-payroll/__init__.py                    |   4
-tests/test_timesheet.py                |   4
+Makefile                               |   4
 --------------------------------------------------
 ```
 

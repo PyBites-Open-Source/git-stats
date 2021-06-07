@@ -33,10 +33,10 @@ def test_get_git_log(subprocess_mock, repo, gitlog):
     first, *_, last = commits
     assert first == Commit(
         hash="'1f86432", author='Bob Belderbos',
-        day='2021-06-02', msg='ran isort')
+        day='2021-22', msg='ran isort')
     assert last == Commit(
         hash='0fe8891', author='Bob Belderbos',
-        day='2021-05-30', msg="backup commit'")
+        day='2021-21', msg="backup commit'")
 
 
 @patch('subprocess.check_output')

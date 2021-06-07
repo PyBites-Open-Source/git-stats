@@ -43,7 +43,7 @@ def get_git_log(repo, since=None):
         fields = line.decode().split("\t")
         hash_, author, date, msg = fields
         dt = datetime.strptime(date, "%a %b %d %H:%M:%S %Y %z")
-        day = dt.strftime("%Y-%m-%d")
+        day = dt.strftime("%Y-%W")
         yield Commit(hash_, author, day, msg)
 
 
