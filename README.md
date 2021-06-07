@@ -48,6 +48,10 @@ tests/test_git.py                      |   2
 --------------------------------------------------
 ```
 
+TODO: it can be slow on big repos, working on it (progress bar, make it async?) ...
+
+TODO2: what about some nice terminal graphing?
+
 ## To run the tests:
 
 There are unit tests and one functional (end-to-end) test. You can run them like this:
