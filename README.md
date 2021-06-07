@@ -2,48 +2,49 @@
 
 The aim of this package is to get some useful stats from a local `git` repo.
 
-## To run it:
+## To run it
+
+All code uses Standard Library so far so you should be able to run it upon checkout:
 
 ```
-make venv
-source venv/bin/activate
-make install
-python -m stats YOUR_REPO_FOLDER
+python3 -m stats YOUR_REPO_FOLDER
 ```
 
-## Example output:
+## Example output
+
+Bit meta but here is how it looks for this repo at this time of writing:
 
 ```
+$ python3 -m stats ~/code/git-stats
 --------------------------------------------------
 < Git Repo Activity Report >
-> Repo: payroll
+> Repo: git-stats
 --------------------------------------------------
 
 * Repo inserts and deletes per week:
 
-2021-21                                | 1116
-# Are you an active developer?
-2021-22                                | 192
+2021-22                                | 1607
+2021-23                                | 479
 
 * Number of commits per week and author:
 
-2021-21
-- Bob Belderbos                        |  19
 2021-22
-- Bob Belderbos                        |  16
+- Bob Belderbos                        |  32
+2021-23
+- Bob Belderbos                        |   3
 
 * Files that are most often found in commits:
 
-payroll/payroll.py                     |  12
-tests/conftest.py                      |  10
-payroll/timesheet.py                   |   9
-tests/test_objects.py                  |   9
-payroll/employee.py                    |   8
-README.md                              |   7
-payroll/payment.py                     |   5
-tests/test_payroll.py                  |   5
-payroll/company.py                     |   4
-Makefile                               |   4
+stats/git.py                           |  16
+stats/report.py                        |   9
+tests/functional/test_report.py        |   6
+README.md                              |   5
+tests/conftest.py                      |   4
+stats/stats.py                         |   3
+Makefile                               |   3
+stats/__main__.py                      |   3
+tests/unit/test_git.py                 |   2
+tests/test_git.py                      |   2
 --------------------------------------------------
 ```
 
@@ -52,6 +53,9 @@ Makefile                               |   4
 There are unit tests and one functional (end-to-end) test. You can run them like this:
 
 ```
+make venv
+source venv/bin/activate
+make install
 make unit (or make test)
 make functional
 make testall
