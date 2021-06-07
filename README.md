@@ -21,7 +21,7 @@ $ python3 -m stats ~/code/git-stats
 > Repo: git-stats
 --------------------------------------------------
 
-* Repo inserts and deletes per week:
+* Repo changes (inserts and deletes) per week:
 
 2021-22                                | 1607
 2021-23                                | 479

@@ -10,7 +10,7 @@ def test_report_allchanges_karmabot(karmabot_dir, capfd):
         "> Repo: karmabot",
         "--------------------------------------------------",
         "",
-        "* Repo inserts and deletes per week:",
+        "* Repo changes (inserts and deletes) per week:",
         "",
         "2017-25                                | 248",
         "2017-26                                |  18",

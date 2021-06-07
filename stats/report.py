@@ -21,7 +21,7 @@ def show_report(repo):
     print(f"> Repo: {os.path.basename(repo)}")
     print(sep)
 
-    print("\n* Repo inserts and deletes per week:\n")
+    print("\n* Repo changes (inserts and deletes) per week:\n")
     for week, changes in sorted(
         gstats.get_number_of_changes_per_week()
     ):
