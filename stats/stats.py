@@ -6,18 +6,12 @@ from .git import get_file_changes, get_git_log
 
 class GitStats:
 
-    def __init__(self, extension_pattern=None):
-        self.extension_pattern = extension_pattern
-
     @lru_cache
     def _get_repo_stats(self, repo):
         commits = get_git_log(repo)
         stats = []
         for commit in commits:
-            for stat in get_file_changes(
-                repo, commit.hash,
-                filter_extension=self.extension_pattern
-            ):
+            for stat in get_file_changes(repo, commit.hash):
                 stats.append((commit, stat))
         return stats
 

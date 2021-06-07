@@ -47,11 +47,8 @@ def get_git_log(repo, since=None):
         yield Commit(hash_, author, week, msg)
 
 
-def get_file_changes(repo, commit, filter_extension=None):
-    cmd = f"(cd {repo} && git show --numstat {commit}"
-    if filter_extension is not None:
-        cmd += f" -- '**/*{filter_extension}'"
-    cmd += ")"
+def get_file_changes(repo, commit):
+    cmd = f"(cd {repo} && git show --numstat {commit})"
     output = run_command(cmd)
 
     for line in output:
