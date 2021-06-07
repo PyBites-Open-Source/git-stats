@@ -21,16 +21,16 @@ class GitStats:
                 stats.append((commit, stat))
         return stats
 
-    def get_number_of_changes_per_day(self, repo):
+    def get_number_of_changes_per_week(self, repo):
         stats = Counter()
         for commit, stat in self._get_repo_stats(repo):
-            stats[commit.day] += stat.inserts + stat.deletes
+            stats[commit.week] += stat.inserts + stat.deletes
         return stats
 
-    def get_number_of_commits_per_day_and_author(self, repo):
+    def get_number_of_commits_per_week_and_author(self, repo):
         stats = defaultdict(lambda: defaultdict(set))
         for commit, _ in self._get_repo_stats(repo):
-            stats[commit.day][commit.author].add(commit.hash)
+            stats[commit.week][commit.author].add(commit.hash)
         return stats
 
     def get_most_changed_files(self, repo, number_of_files=10):
