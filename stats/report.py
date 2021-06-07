@@ -1,5 +1,8 @@
 import os
 
+import numpy as np
+from uniplot import plot
+
 from .stats import GitStats
 
 
@@ -21,10 +24,15 @@ def show_report(repo):
     print(f"> Repo: {os.path.basename(repo)}")
     print(sep)
 
+    daily_progress = gstats.get_number_of_changes_per_day()
+    x, y = zip(*daily_progress)
+    breakpoint()
+    title = "Repo changes (inserts and deletes) over time"
+    plot(y, x, title=title)
+
+    weekly_changes = gstats.get_number_of_changes_per_week()
     print("\n* Repo changes (inserts and deletes) per week:\n")
-    for week, changes in sorted(
-        gstats.get_number_of_changes_per_week()
-    ):
+    for week, changes in sorted(weekly_changes):
         print(f"{week:<38} | {changes:>3}")
 
     print("\n* Number of commits per week and author:\n")

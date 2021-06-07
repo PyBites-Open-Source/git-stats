@@ -7,7 +7,7 @@ import sys
 from .exceptions import NotAGitRepo
 from .utils import run_command
 
-Commit = namedtuple("Commit", "hash author week msg")
+Commit = namedtuple("Commit", "hash author date week msg")
 Stats = namedtuple("Stats", "inserts deletes filename")
 
 
@@ -51,7 +51,7 @@ def get_git_log(repo, since=None):
                   file=sys.stderr)
             continue
         week = dt.strftime("%Y-%W")
-        yield Commit(hash_, author, week, msg)
+        yield Commit(hash_, author, dt, week, msg)
 
 
 def get_file_changes(repo, commit):

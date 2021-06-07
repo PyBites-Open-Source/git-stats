@@ -17,6 +17,14 @@ class GitStats:
                 stats.append((commit, stat))
         return stats
 
+    def get_number_of_changes_per_day(self):
+        stats = Counter()
+        start_dt = self.repo_stats[-1][0].date
+        for commit, stat in self.repo_stats:
+            days_in = (commit.date - start_dt).days
+            stats[days_in] += stat.inserts + stat.deletes
+        return reversed(stats.items())
+
     def get_number_of_changes_per_week(self):
         stats = Counter()
         for commit, stat in self.repo_stats:
