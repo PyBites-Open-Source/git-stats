@@ -48,9 +48,7 @@ tests/test_git.py                      |   2
 --------------------------------------------------
 ```
 
-TODO: it can be slow on big repos, working on it (progress bar, make it async?) ...
-
-TODO2: what about some nice terminal graphing?
+@TODO: add a progress bar for big repos
 
 ## To run the tests:
 
