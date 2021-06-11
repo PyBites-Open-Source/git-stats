@@ -1,5 +1,7 @@
 from collections import Counter, defaultdict
 
+from tqdm import tqdm
+
 from .git import get_file_changes, get_git_log
 
 
@@ -10,9 +12,9 @@ class GitStats:
         self.repo_stats = self._get_repo_stats()
 
     def _get_repo_stats(self):
-        commits = get_git_log(self.repo)
+        commits = list(get_git_log(self.repo))
         stats = []
-        for commit in commits:
+        for commit in tqdm(commits, total=len(commits)):
             for stat in get_file_changes(self.repo, commit.hash):
                 stats.append((commit, stat))
         return stats

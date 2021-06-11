@@ -56,8 +56,6 @@ function gitst {
 }
 ```
 
-@TODO: add a progress bar for big repos
-
 ## To run the tests:
 
 There are unit tests and one functional (end-to-end) test. You can run them like this:
