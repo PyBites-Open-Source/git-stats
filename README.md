@@ -48,6 +48,14 @@ tests/test_git.py                      |   2
 --------------------------------------------------
 ```
 
+To run it from any repo / directory, add this to your rc file:
+
+```
+function gitst {
+    (pwd=`pwd` && cd ~/code/git-stats/ && python3 -m stats $pwd)
+}
+```
+
 @TODO: add a progress bar for big repos
 
 ## To run the tests:
