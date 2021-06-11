@@ -40,6 +40,21 @@ def test_get_git_log(subprocess_mock, repo, gitlog):
 
 
 @patch('subprocess.check_output')
+def test_handling_bad_datetime(subprocess_mock, repo, gitlog_bad, capfd):
+    subprocess_mock.return_value = gitlog_bad
+    commits = list(get_git_log(str(repo)))
+    assert len(commits) == 0
+    actual_stderr = capfd.readouterr()[1].strip()
+    expected_stderr = (
+        "Skipping commit '5e6ecdad because cannot convert "
+        "Thu Sep 8 02:38:50 2011 +51800 to datetime, "
+        "exception: time data 'Thu Sep 8 02:38:50 2011 +51800' "
+        "does not match format '%a %b %d %H:%M:%S %Y %z'"
+    )
+    assert actual_stderr == expected_stderr
+
+
+@patch('subprocess.check_output')
 def test_get_file_changes(subprocess_mock, repo, gitcommit):
     subprocess_mock.return_value = gitcommit
     stats = list(get_file_changes(repo, "abc123"))

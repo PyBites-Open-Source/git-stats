@@ -32,6 +32,15 @@ def gitlog(repo):
 
 
 @pytest.fixture
+def gitlog_bad(repo):
+    """Had to add some exception handling for a bad datetime
+       in requests git log"""
+    with open(Path("tests") / "payloads" / "gitlog_bad.txt") as f:
+        content = f.read()
+    return _clean_data(content)
+
+
+@pytest.fixture
 def gitcommit(repo):
     with open(Path("tests") / "payloads" / "gitcommit.txt") as f:
         content = f.read()
