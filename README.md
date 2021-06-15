@@ -48,13 +48,16 @@ tests/test_git.py                      |   2
 --------------------------------------------------
 ```
 
-To run it from any repo / directory, add this to your rc file:
+To run it from any repo / directory, add this to your `.bashrc` (`.zshrc`) file (assuming your virtual environment is called `venv` and is located in the project folder):
 
 ```
+alias ae='source venv/bin/activate'
 function gitst {
-    (pwd=`pwd` && cd ~/code/git-stats/ && python3 -m stats $pwd)
+    (pwd=`pwd` && cd ~/code/git-stats/ && ae && python3 -m stats $pwd)
 }
 ```
+
+The sub shell (`()`) makes that it should not have any side effects on your current shell session.
 
 ## To run the tests:
 
