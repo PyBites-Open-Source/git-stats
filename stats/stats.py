@@ -43,3 +43,12 @@ class GitStats:
         for _, stat in self.repo_stats:
             stats[stat.filename] += 1
         return stats.most_common(number_of_files)
+
+    def bars_and_spaces(self, item_dict, change_count):
+        max_change_count = max(v for k,v in item_dict)
+        bar_length = int(36*(change_count/max_change_count))
+        if bar_length == 0 and change_count > 0:
+            return "▎" + (" " * 35)
+        space_length = 36 - bar_length
+        return ("█" * bar_length) + (" " * space_length)
+
