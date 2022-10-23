@@ -51,4 +51,3 @@ class GitStats:
             return "▎" + (" " * 35)
         space_length = 36 - bar_length
         return ("█" * bar_length) + (" " * space_length)
-
