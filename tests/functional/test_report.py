@@ -5,159 +5,160 @@ def test_report_allchanges_karmabot(karmabot_dir, capfd):
     show_report(karmabot_dir)
     actual = capfd.readouterr()[0].splitlines()
     expected = [
-     '--------------------------------------------------'
-    , '< Git Repo Activity Report >'
-    , '> Repo: karmabot'
-    , '--------------------------------------------------'
-    , ''
-    , '* Repo changes (inserts and deletes) per week:'
-    , ''
-    , '2017-25 ████                                 | 248'
-    , '2017-26 ▎                                    |  18'
-    , '2017-32 ███████                              | 482'
-    , '2017-40 ▎                                    |   4'
-    , '2017-43 ██                                   | 153'
-    , '2018-29 ███                                  | 209'
-    , '2018-30 ▎                                    |   3'
-    , '2018-31 ▎                                    |   2'
-    , '2018-35 ▎                                    |  18'
-    , '2018-36 ████████████████                     |1028'
-    , '2018-37 ▎                                    |   8'
-    , '2018-38 ████                                 | 256'
-    , '2018-41 ▎                                    |   2'
-    , '2018-44 ▎                                    |   4'
-    , '2019-09 ▎                                    |   6'
-    , '2019-13 ▎                                    |  12'
-    , '2019-16 ▎                                    |   2'
-    , '2019-26 ▎                                    |  10'
-    , '2019-39 ██                                   | 178'
-    , '2019-40 ██                                   | 156'
-    , '2019-43 █████████████████████████████████    |2013'
-    , '2019-44 ██                                   | 122'
-    , '2019-46 ██████████                           | 631'
-    , '2019-49 █                                    |  75'
-    , '2020-00 ████                                 | 274'
-    , '2020-17 ▎                                    |  14'
-    , '2020-19 ▎                                    |  41'
-    , '2020-27 ▎                                    |   2'
-    , '2020-28 ████████████████████████████████████ |2177'
-    , '2020-32 ████                                 | 270'
-    , '2020-35 ▎                                    |   2'
-    , '2020-36 █████████                            | 545'
-    , '2020-39 █████████████████                    |1029'
-    , '2020-40 ██████████████                       | 849'
-    , '2020-51 █████████                            | 555'
-    , '2021-12 █████████                            | 557'
-    , '2021-22 ▎                                    |  12'
-    , ''
-    , '* Number of commits per week and author:'
-    , ''
-    , '2017-25'
-    , '- bbelderbos                           |   9'
-    , '2017-26'
-    , '- bbelderbos                           |   4'
-    , '2017-32'
-    , '- bbelderbos                           |  17'
-    , '2017-40'
-    , '- bbelderbos                           |   2'
-    , '2017-43'
-    , '- PyBites                              |   2'
-    , '- bbelderbos                           |   4'
-    , '2018-29'
-    , '- Bob Belderbos                        |   9'
-    , '2018-30'
-    , '- Bob Belderbos                        |   2'
-    , '2018-31'
-    , '- Bob Belderbos                        |   1'
-    , '2018-35'
-    , '- Bob Belderbos                        |   1'
-    , '2018-36'
-    , '- Bob Belderbos                        |  56'
-    , '- PyBites                              |   2'
-    , '- pybites                              |   1'
-    , '2018-37'
-    , '- Bob Belderbos                        |   3'
-    , '2018-38'
-    , '- Bob Belderbos                        |   3'
-    , '- jnyjny                               |   1'
-    , '2018-41'
-    , '- Bob Belderbos                        |   1'
-    , '- Mayank Singh                         |   1'
-    , '2018-44'
-    , '- PyBites                              |   2'
-    , '2019-09'
-    , '- Bob Belderbos                        |   2'
-    , '2019-13'
-    , '- Bob Belderbos                        |   3'
-    , '2019-16'
-    , '- PyBites                              |   1'
-    , '2019-26'
-    , '- Bob Belderbos                        |   2'
-    , '2019-39'
-    , '- pmayd                                |   3'
-    , '2019-40'
-    , '- Michael Aydinbas                     |   1'
-    , '- pmayd                                |   2'
-    , '2019-43'
-    , '- Bob Belderbos                        |  18'
-    , '- Patrick-Oliver Groß                  |   1'
-    , '2019-44'
-    , '- Bob Belderbos                        |   3'
-    , '- PyBites                              |   1'
-    , '- Patrick-Oliver Groß                  |   2'
-    , '2019-46'
-    , '- Bob Belderbos                        |  14'
-    , '- Patrick-Oliver Groß                  |   3'
-    , '2019-49'
-    , '- Patrick-Oliver Groß                  |   1'
-    , '- AJ Kerrigan                          |   1'
-    , '2020-00'
-    , '- AJ Kerrigan                          |   2'
-    , '- Bob Belderbos                        |   1'
-    , '2020-17'
-    , '- Patrick-Oliver Groß                  |   1'
-    , '2020-19'
-    , '- Patrick-Oliver Groß                  |   1'
-    , '2020-27'
-    , '- Bob Belderbos                        |   1'
-    , '2020-28'
-    , '- Bob Belderbos                        |   1'
-    , '- Patrick-Oliver Groß                  |   1'
-    , '2020-32'
-    , '- Bob Belderbos                        |   3'
-    , '- Patrick-Oliver Groß                  |   1'
-    , '2020-35'
-    , '- Bob Belderbos                        |   1'
-    , '2020-36'
-    , '- Patrick-Oliver Groß                  |   4'
-    , '- Bob Belderbos                        |   5'
-    , '- Michael Aydinbas                     |   3'
-    , '- AJ Kerrigan                          |   2'
-    , '2020-39'
-    , '- Patrick-Oliver Groß                  |   2'
-    , '- Michael Aydinbas                     |   2'
-    , '2020-40'
-    , '- Michael Aydinbas                     |   1'
-    , '- Ivan Gonzalez                        |   1'
-    , '2020-51'
-    , '- Bob Belderbos                        |   1'
-    , '- Patrick-Oliver Groß                  |   1'
-    , '2021-12'
-    , '- Patrick-Oliver Groß                  |   1'
-    , '2021-22'
-    , '- pre-commit-ci[bot]                   |   1'
-    , ''
-    , '* Files that are most often found in commits:'
-    , ''
-    , 'bot/slack.py                           |  77'
-    , 'README.md                              |  28'
-    , 'bot/karma.py                           |  21'
-    , 'commands/topchannels.py                |  17'
-    , 'tests/test_bot.py                      |  14'
-    , 'main.py                                |  14'
-    , '.gitignore                             |  13'
-    , 'pyproject.toml                         |  12'
-    , 'test/tests.py                          |  12'
-    , 'requirements.txt                       |  11'
-    , '--------------------------------------------------']
+        "--------------------------------------------------",
+        "< Git Repo Activity Report >",
+        "> Repo: karmabot",
+        "--------------------------------------------------",
+        "",
+        "* Repo changes (inserts and deletes) per week:",
+        "",
+        "2017-25 ████                                 | 248",
+        "2017-26 ▎                                    |  18",
+        "2017-32 ███████                              | 482",
+        "2017-40 ▎                                    |   4",
+        "2017-43 ██                                   | 153",
+        "2018-29 ███                                  | 209",
+        "2018-30 ▎                                    |   3",
+        "2018-31 ▎                                    |   2",
+        "2018-35 ▎                                    |  18",
+        "2018-36 ████████████████                     |1028",
+        "2018-37 ▎                                    |   8",
+        "2018-38 ████                                 | 256",
+        "2018-41 ▎                                    |   2",
+        "2018-44 ▎                                    |   4",
+        "2019-09 ▎                                    |   6",
+        "2019-13 ▎                                    |  12",
+        "2019-16 ▎                                    |   2",
+        "2019-26 ▎                                    |  10",
+        "2019-39 ██                                   | 178",
+        "2019-40 ██                                   | 156",
+        "2019-43 █████████████████████████████████    |2013",
+        "2019-44 ██                                   | 122",
+        "2019-46 ██████████                           | 631",
+        "2019-49 █                                    |  75",
+        "2020-00 ████                                 | 274",
+        "2020-17 ▎                                    |  14",
+        "2020-19 ▎                                    |  41",
+        "2020-27 ▎                                    |   2",
+        "2020-28 ████████████████████████████████████ |2177",
+        "2020-32 ████                                 | 270",
+        "2020-35 ▎                                    |   2",
+        "2020-36 █████████                            | 545",
+        "2020-39 █████████████████                    |1029",
+        "2020-40 ██████████████                       | 849",
+        "2020-51 █████████                            | 555",
+        "2021-12 █████████                            | 557",
+        "2021-22 ▎                                    |  12",
+        "",
+        "* Number of commits per week and author:",
+        "",
+        "2017-25",
+        "- bbelderbos                           |   9",
+        "2017-26",
+        "- bbelderbos                           |   4",
+        "2017-32",
+        "- bbelderbos                           |  17",
+        "2017-40",
+        "- bbelderbos                           |   2",
+        "2017-43",
+        "- PyBites                              |   2",
+        "- bbelderbos                           |   4",
+        "2018-29",
+        "- Bob Belderbos                        |   9",
+        "2018-30",
+        "- Bob Belderbos                        |   2",
+        "2018-31",
+        "- Bob Belderbos                        |   1",
+        "2018-35",
+        "- Bob Belderbos                        |   1",
+        "2018-36",
+        "- Bob Belderbos                        |  56",
+        "- PyBites                              |   2",
+        "- pybites                              |   1",
+        "2018-37",
+        "- Bob Belderbos                        |   3",
+        "2018-38",
+        "- Bob Belderbos                        |   3",
+        "- jnyjny                               |   1",
+        "2018-41",
+        "- Bob Belderbos                        |   1",
+        "- Mayank Singh                         |   1",
+        "2018-44",
+        "- PyBites                              |   2",
+        "2019-09",
+        "- Bob Belderbos                        |   2",
+        "2019-13",
+        "- Bob Belderbos                        |   3",
+        "2019-16",
+        "- PyBites                              |   1",
+        "2019-26",
+        "- Bob Belderbos                        |   2",
+        "2019-39",
+        "- pmayd                                |   3",
+        "2019-40",
+        "- Michael Aydinbas                     |   1",
+        "- pmayd                                |   2",
+        "2019-43",
+        "- Bob Belderbos                        |  18",
+        "- Patrick-Oliver Groß                  |   1",
+        "2019-44",
+        "- Bob Belderbos                        |   3",
+        "- PyBites                              |   1",
+        "- Patrick-Oliver Groß                  |   2",
+        "2019-46",
+        "- Bob Belderbos                        |  14",
+        "- Patrick-Oliver Groß                  |   3",
+        "2019-49",
+        "- Patrick-Oliver Groß                  |   1",
+        "- AJ Kerrigan                          |   1",
+        "2020-00",
+        "- AJ Kerrigan                          |   2",
+        "- Bob Belderbos                        |   1",
+        "2020-17",
+        "- Patrick-Oliver Groß                  |   1",
+        "2020-19",
+        "- Patrick-Oliver Groß                  |   1",
+        "2020-27",
+        "- Bob Belderbos                        |   1",
+        "2020-28",
+        "- Bob Belderbos                        |   1",
+        "- Patrick-Oliver Groß                  |   1",
+        "2020-32",
+        "- Bob Belderbos                        |   3",
+        "- Patrick-Oliver Groß                  |   1",
+        "2020-35",
+        "- Bob Belderbos                        |   1",
+        "2020-36",
+        "- Patrick-Oliver Groß                  |   4",
+        "- Bob Belderbos                        |   5",
+        "- Michael Aydinbas                     |   3",
+        "- AJ Kerrigan                          |   2",
+        "2020-39",
+        "- Patrick-Oliver Groß                  |   2",
+        "- Michael Aydinbas                     |   2",
+        "2020-40",
+        "- Michael Aydinbas                     |   1",
+        "- Ivan Gonzalez                        |   1",
+        "2020-51",
+        "- Bob Belderbos                        |   1",
+        "- Patrick-Oliver Groß                  |   1",
+        "2021-12",
+        "- Patrick-Oliver Groß                  |   1",
+        "2021-22",
+        "- pre-commit-ci[bot]                   |   1",
+        "",
+        "* Files that are most often found in commits:",
+        "",
+        "bot/slack.py                           |  77",
+        "README.md                              |  28",
+        "bot/karma.py                           |  21",
+        "commands/topchannels.py                |  17",
+        "tests/test_bot.py                      |  14",
+        "main.py                                |  14",
+        ".gitignore                             |  13",
+        "pyproject.toml                         |  12",
+        "test/tests.py                          |  12",
+        "requirements.txt                       |  11",
+        "--------------------------------------------------",
+    ]
     assert actual == expected

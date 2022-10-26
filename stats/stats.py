@@ -6,7 +6,6 @@ from .git import get_file_changes, get_git_log
 
 
 class GitStats:
-
     def __init__(self, repo):
         self.repo = repo
         self.repo_stats = self._get_repo_stats()
@@ -44,10 +43,10 @@ class GitStats:
             stats[stat.filename] += 1
         return stats.most_common(number_of_files)
 
-    def bars_and_spaces(self, item_dict, change_count, space_length = 36):
-        max_change_count = max(v for k,v in item_dict)
-        bar_length = int(space_length*(change_count/max_change_count))
+    def bars_and_spaces(self, item_dict, change_count, space_length=36):
+        max_change_count = max(v for k, v in item_dict)
+        bar_length = int(space_length * (change_count / max_change_count))
         if bar_length == 0 and change_count > 0:
-            return "▎" + " " * (space_length-1)
+            return "▎" + " " * (space_length - 1)
         space_length -= bar_length
         return "█" * bar_length + " " * space_length
