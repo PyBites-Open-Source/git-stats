@@ -22,10 +22,11 @@ def show_report(repo):
     print(sep)
 
     print("\n* Repo changes (inserts and deletes) per week:\n")
-    for week, changes in sorted(
-        gstats.get_number_of_changes_per_week()
-    ):
-        print(f"{week:<38} | {changes:>3}")
+
+    changes_per_week = sorted(gstats.get_number_of_changes_per_week())
+    for week, changes in changes_per_week:
+        bar_and_spaces = gstats.bars_and_spaces(changes_per_week, changes)
+        print(f"{week} {bar_and_spaces} |{changes:>4}")
 
     print("\n* Number of commits per week and author:\n")
     commits = gstats.get_number_of_commits_per_week_and_author()
